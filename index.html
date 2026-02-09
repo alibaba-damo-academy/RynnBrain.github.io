@@ -11,6 +11,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
+    /* 切换按钮样式 */
+.lang-switch {
+  display: flex;
+  background: color-mix(in srgb, var(--panel) 80%, transparent);
+  border: 1px solid var(--border);
+  padding: 4px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+.l-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 6px 18px; /* 稍微加宽一点点 */
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.l-btn:hover { color: var(--text); }
+
+/* 选中状态 */
+.l-btn.active {
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
     /* =========================
        Logo 自动切换逻辑 (Light/Dark)
     ========================= */
@@ -894,13 +924,29 @@ html[data-theme="light"]{
 <!-- <h2 class="h2">宣传视频</h2> -->
       <!-- 宣传视频  -->
       <section>
+      <div class="container"> 
         
-        <div class="promo-wrap"> 
-          <div class="promo-inner">
-            <video src="https://github.com/alibaba-damo-academy/RynnBrain.github.io/raw/refs/heads/main/assets/poster_video.mp4" poster="assets/fengmian.png" controls playsinline></video>
+        <div style="display: flex; justify-content: center; margin-bottom: 16px;">
+          <div class="lang-switch">
+            <button class="l-btn active" onclick="switchVideo('en')" type="button">English</button>
+            <button class="l-btn" onclick="switchVideo('zh')" type="button">中文版</button>
           </div>
         </div>
-      </section>
+
+        <div class="promo-wrap"> 
+          <div class="promo-inner">
+            <video 
+              id="mainVideo" 
+              src="assets/poster_video.mp4" 
+              poster="assets/fengmian.png" 
+              controls 
+              playsinline>
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </section>
     </div>
   </header>
 
@@ -1159,6 +1205,31 @@ html[data-theme="light"]{
   </main>
 
   <script>
+    /* 视频切换逻辑 */
+    const srcZh = "assets/poster_video.mp4";     // 英文版路径
+    const srcEn = "assets/poster_video_en.mp4";  // 中文版路径
+
+    function switchVideo(lang) {
+      const vid = document.getElementById('mainVideo');
+      const btns = document.querySelectorAll('.l-btn');
+
+      // 重置所有按钮样式
+      btns.forEach(btn => btn.classList.remove('active'));
+
+      if (lang === 'en') {
+        btns[0].classList.add('active'); // 第一个是 English
+        if(vid.getAttribute('src') !== srcEn){
+          vid.src = srcEn;
+          vid.play();
+        }
+      } else {
+        btns[1].classList.add('active'); // 第二个是中文
+        if(vid.getAttribute('src') !== srcZh){
+          vid.src = srcZh;
+          vid.play();
+        }
+      }
+    }
     /* =========================
        1. 图片灯箱 (Lightbox) 逻辑
     ========================= */
@@ -1352,6 +1423,7 @@ html[data-theme="light"]{
   </script>
 </body>
 </html>
+
 
 
 
