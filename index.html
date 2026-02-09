@@ -11,6 +11,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
+    /* =========================
+       Logo 自动切换逻辑 (Light/Dark)
+    ========================= */
+    /* 默认（亮色模式）：显示 light，隐藏 dark */
+    .corner-logos .logo-light { display: block; }
+    .corner-logos .logo-dark  { display: none; }
+
+    /* === 暗色模式触发条件 1: 系统偏好是暗色 且 没有手动强制切回亮色 === */
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="light"]) .corner-logos .logo-light { display: none; }
+      html:not([data-theme="light"]) .corner-logos .logo-dark  { display: block; }
+    }
+
+    /* === 暗色模式触发条件 2: 手动强制暗色 (data-theme="dark") === */
+    html[data-theme="dark"] .corner-logos .logo-light { display: none; }
+    html[data-theme="dark"] .corner-logos .logo-dark  { display: block; }
     .carousel.two-col .demo-card {
   /* 关键计算：
      (100%宽度 - 1个间隙) / 2 = 每个卡片的宽度
@@ -791,7 +807,10 @@ html[data-theme="light"]{
 
   <!-- 左上角：学校+公司logo -->
   <div class="corner-logos" aria-label="Affiliation logos">
-    <img src="assets/damo-logo.png" alt="School Logo">
+    <img class="logo-light" src="assets/damo-logo-1.png" alt="School Logo Light">
+    
+    <img class="logo-dark" src="assets/damo-logo-2.png" alt="School Logo Dark">
+    
     <img src="assets/logo.png" alt="Company Logo">
   </div>
 
@@ -887,39 +906,37 @@ html[data-theme="light"]{
     <section>
       <h2 class="h2">Abstract</h2>
       <div class="panel abstract">
-        <p>
-      We present <strong>RynnBrain</strong>, an embodied foundation model grounded in physical reality. The goal of RynnBrain is not just to "observe" the environment, but to anchor its understanding within the physical world through <strong>comprehensive egocentric cognition</strong>, <strong>precise spatiotemporal grounding</strong>, and <strong>real task planning</strong>. This systematic upgrade pushes the boundaries of embodied brains, moving them from passive observation toward active, physics-aware reasoning and complex task execution.
+    <p>
+      We present <strong>RynnBrain</strong>, an embodied foundation model grounded in physical reality. Moving beyond passive observation, RynnBrain anchors its understanding in the physical world through <strong>comprehensive egocentric cognition</strong>, <strong>precise spatiotemporal grounding</strong>, and <strong>real task planning</strong>. This systematic upgrade enables active, physics-aware reasoning and complex task execution.
     </p>
 
-
-    
     <p>
-      Rynnbrain is available in two dense variants (2B and 8B) and one mixture-of-experts (MoE) model (30B-A3B). In addition, we release three post‑trained models: RynnBrain‑Plan, RynnBrain‑Nav, and RynnBrain‑CoP. RynnBrain‑Plan demonstrates the effectiveness of the fine‑grained manipulation‑planning paradigm that alternates between textual reasoning and localization. RynnBrain‑Nav verifies that using RynnBrain as the foundation model can substantially enhance the performance ceiling of various embodied task models. RynnBrain-CoP incorporates an interleaved reasoning mechanism that alternates between textual reasoning and spatial grounding, endowing it with physical-space reasoning capabilities.
+      We release RynnBrain in dense (<strong>2B, 8B</strong>) and MoE (<strong>30B</strong>) variants, alongside three specialized models: <strong>RynnBrain‑Plan</strong> (manipulation planning), <strong>RynnBrain‑Nav</strong> (navigation), and <strong>RynnBrain‑CoP</strong> (spatial reasoning).
     </p>
 
     <h3 style="text-align: left; margin: 24px 0 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
       🌟 Key Highlights
     </h3>
     
-    <ul style="text-align: left; padding-left: 20px; line-height: 1.8;">
-      <li style="margin-bottom: 12px;">
-        <strong>Comprehensive egocentric understanding:</strong><br>
-        RynnBrain excels in spatial comprehension and egocentric cognition, encompassing tasks such as embodied QA, egocentric counting, and OCR, while further broadening the scope of embodied brains with its fine-grained video understanding capabilities.
+    <ul style="text-align: left; padding-left: 20px; line-height: 1.6;">
+      <li style="margin-bottom: 10px;">
+        <strong>Comprehensive Egocentric Understanding:</strong><br>
+        Excels in fine-grained video understanding and egocentric cognition, covering diverse tasks such as embodied QA, counting, and OCR.
       </li>
-      <li style="margin-bottom: 12px;">
-        <strong>Diverse spatiotemporal localization:</strong><br>
-        RynnBrain possesses powerful physical-space localization capabilities, enabling it to locate objects, identify target areas, and predict trajectories across its entire episodic memory, thereby endowing robots with global spatial awareness and fine-grained video understanding.
+      <li style="margin-bottom: 10px;">
+        <strong>Diverse Spatiotemporal Localization:</strong><br>
+        Possesses powerful localization capabilities across episodic memory, enabling precise identification of objects, target areas, and motion trajectories.
       </li>
-      <li style="margin-bottom: 12px;">
-        <strong>Physical-space reasoning:</strong><br>
-        Departing from conventional purely textual reasoning paradigms, RynnBrain employs an interleaved reasoning strategy that alternates between textual and spatial grounding, ensuring that its reasoning processes are firmly rooted in the physical environment.
+      <li style="margin-bottom: 10px;">
+        <strong>Physical-Space Reasoning:</strong><br>
+        Interleaves textual and spatial grounding to anchor reasoning firmly in physical reality.
       </li>
       <li>
-        <strong>Physics-aware precise planning:</strong><br>
-        By integrating localized information of affordances, areas, and objects directly into the planning process, RynnBrain provides downstream VLA models with precise instructions, enabling the hierarchical RynnBrain-VLA architecture to effectively execute highly intricate and fine-grained tasks.
+        <strong>Physics-Aware Planning:</strong><br>
+        Integrates localized affordances and object info into planning, enabling downstream VLA models to execute intricate tasks.
       </li>
     </ul>
-      </div>
+  </div>
     </section>
 
     <!-- Overview -->
@@ -1332,6 +1349,7 @@ html[data-theme="light"]{
   </script>
 </body>
 </html>
+
 
 
 
