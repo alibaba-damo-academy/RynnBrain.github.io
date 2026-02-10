@@ -11,6 +11,68 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
+  /* =========================
+   下拉菜单按钮样式
+========================= */
+/* 1. 容器：用来包裹按钮和菜单 */
+.pill-dropdown {
+  position: relative; /* 关键：让子菜单相对于它定位 */
+  display: inline-block;
+}
+
+/* 2. 触发按钮（原本的 pill 样式微调） */
+.pill-dropdown .pill.trigger {
+  cursor: default; /* 鼠标放上去不显示手型，或者保留 pointer */
+  padding-right: 12px; /* 给右边的小箭头留点空间 */
+}
+
+/* 3. 下拉菜单本体 (默认隐藏) */
+.dropdown-menu {
+  display: none; /* 默认不显示 */
+  position: absolute;
+  top: 110%; /* 在按钮正下方，留一点点缝隙 */
+  left: 50%;
+  transform: translateX(-50%); /* 水平居中 */
+  background: var(--panel); /* 跟随主题背景 */
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 140px; /* 菜单最小宽度 */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 100; /* 保证浮在最上面 */
+  backdrop-filter: blur(12px); /* 磨砂玻璃效果 */
+  text-align: left;
+}
+
+/* 4. 鼠标悬停在容器上时，显示菜单 */
+.pill-dropdown:hover .dropdown-menu {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+/* 5. 菜单里的子按钮样式 */
+.dropdown-menu a {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.2s;
+  white-space: nowrap; /* 防止文字换行 */
+}
+
+.dropdown-menu a:hover {
+  background: rgba(127, 127, 127, 0.15); /* 鼠标悬停变色 */
+  color: var(--text);
+}
+
+/* 简单的淡入动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
     /* === 新增：3列布局样式 === */
 .carousel.three-col .demo-card {
   /* 计算公式：(100% - 2个间隙) / 3 */
@@ -928,9 +990,26 @@ html[data-theme="light"]{
         <a class="pill" href="https://huggingface.co/collections/Alibaba-DAMO-Academy/rynnbrain" target="_blank" rel="noopener"><i class="fa-solid fa-face-smile"></i> Huggingface</a>
         <a class="pill" href="https://www.modelscope.cn/collections/DAMO_Academy/RynnBrain" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines"></i>modelscope</a>
         <a class="pill" href="https://huggingface.co/datasets/Alibaba-DAMO-Academy/RynnBrain-Bench" target="_blank" rel="noopener"><i class="fa-solid fa-face-smile"></i> Benchmark</a>
-        <a class="pill" href="https://m.developer.damo-academy.com/allSpark/RynnBrain" target="_blank" rel="noopener">
-  <i class="fa-solid fa-rocket"></i> Try
-</a>
+     <div class="pill-row">
+        
+        <div class="pill-dropdown">
+          <span class="pill trigger">
+            <i class="fa-solid fa-gamepad"></i> Try <i class="fa-solid fa-caret-down" style="font-size:12px; margin-left:6px; opacity:0.6;"></i>
+          </span>
+          
+          <div class="dropdown-menu">
+            <a href="https://m.developer.damo-academy.com/allSpark/RynnBrain" target="_blank" rel="noopener">
+              <i class="fa-solid fa-cloud" style="width:20px;"></i> 乐云平台
+            </a>
+            
+            <a href="https://huggingface.co/spaces/Alibaba-DAMO-Academy/RynnBrain" target="_blank" rel="noopener">
+              <i class="fa-solid fa-face-smile" style="width:20px;"></i> HuggingFace
+            </a>
+          </div>
+        </div>
+
+        <a class="pill" href="https://github.com/..." target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+        </div>
         <a class="pill" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> Video</a>
       </div>
 <!-- <h2 class="h2">宣传视频</h2> -->
@@ -1491,6 +1570,7 @@ html[data-theme="light"]{
   </script>
 </body>
 </html>
+
 
 
 
