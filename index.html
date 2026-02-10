@@ -11,6 +11,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
+    /* === 新增：3列布局样式 === */
+.carousel.three-col .demo-card {
+  /* 计算公式：(100% - 2个间隙) / 3 */
+  flex: 0 0 calc((100% - 36px) / 3);
+}
+
+/* 手机端依然强制单列，防止太挤 */
+@media (max-width: 768px) {
+  .carousel.three-col .demo-card {
+    flex: 0 0 100%;
+  }
+}
     /* 切换按钮样式 */
 .lang-switch {
   display: flex;
@@ -1033,7 +1045,56 @@ html[data-theme="light"]{
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
       <img id="lightbox-img" src="" alt="Fullscreen">
     </div>
+    <section>
+      <h2 class="h2">Skill Demonstration</h2>
+      <p class="desc">Showcasing specific capabilities.</p> 
 
+      <div class="carousel panel soft three-col" style="padding: 12px 14px 18px;">
+        
+        <button class="car-btn left" id="demoPrev3" aria-label="Prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="car-btn right" id="demoNext3" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="demoTrack3" style="gap: 18px;">
+            
+            <div class="panel soft demo-card">
+              <div class="frame">
+                <video class="video" src="assets/skill_demo/skill1.mp4" controls playsinline preload="metadata"></video>
+              </div>
+              <div class="demo-title">Skill 1</div>
+              <div class="demo-desc">Description for skill 1.</div>
+            </div>
+
+            <div class="panel soft demo-card">
+              <div class="frame">
+                <video class="video" src="assets/skill_demo/skill2.mp4" controls playsinline preload="metadata"></video>
+              </div>
+              <div class="demo-title">Skill 2</div>
+              <div class="demo-desc">Description for skill 2.</div>
+            </div>
+
+            <div class="panel soft demo-card">
+              <div class="frame">
+                <video class="video" src="assets/skill_demo/skill3.mp4" controls playsinline preload="metadata"></video>
+              </div>
+              <div class="demo-title">Skill 3</div>
+              <div class="demo-desc">Description for skill 3.</div>
+            </div>
+
+            <div class="panel soft demo-card">
+              <div class="frame">
+                <video class="video" src="assets/skill_demo/skill4.mp4" controls playsinline preload="metadata"></video>
+              </div>
+              <div class="demo-title">Skill 4</div>
+              <div class="demo-desc">Description for skill 4.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="car-dots" id="demoDots3" aria-label="Pagination dots"></div>
+      </div>
+    </section>
     <!-- Demos：三卡滑动（按钮翻页），支持很多个 -->
     <section>
       <h2 class="h2">Real-Robot Demos</h2>
@@ -1419,10 +1480,12 @@ html[data-theme="light"]{
 
     // 启动第二个 (Navigation Demos - 双列)
     initCarousel('demoTrack2', 'demoPrev2', 'demoNext2', 'demoDots2');
-
+    // 3. 初始化 Skill Demonstration (3列)
+    initCarousel('demoTrack3', 'demoPrev3', 'demoNext3', 'demoDots3');
   </script>
 </body>
 </html>
+
 
 
 
