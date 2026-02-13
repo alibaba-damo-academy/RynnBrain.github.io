@@ -131,15 +131,35 @@
     /* === 暗色模式触发条件 2: 手动强制暗色 (data-theme="dark") === */
     html[data-theme="dark"] .corner-logos .logo-light { display: none; }
     html[data-theme="dark"] .corner-logos .logo-dark  { display: block; }
-    .carousel.two-col .demo-card {
-  /* 关键计算：
-     (100%宽度 - 1个间隙) / 2 = 每个卡片的宽度
-     假设间隙是 16px，那么减去 8px 
-  */
-  flex: 0 0 calc(50% - 8px);
-  min-width: 0; /* 防止内容撑开 */
+.carousel.two-col .demo-card {
+  /* 假设 gap 是 18px，那么 50% 减去 9px 刚好。减去 10px 留出一点点安全余量 */
+  flex: 0 0 calc(50% - 10px);
+  min-width: 0;
+  box-sizing: border-box;
 }
 
+/* 关键1：取消固定的卡片占位比例，让它自适应特殊的视频比例 */
+.carousel.two-col .frame {
+  aspect-ratio: auto; /* 取消默认的 16/9 等比例限制 */
+  width: 100%;
+  height: auto;
+  background: var(--bg); /* 如果视频有黑边，可以和背景融为一体 */
+}
+
+/* 关键2：确保视频内容完整显示（contain），绝不裁切（cover） */
+.carousel.two-col .frame video {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* contain 保证完整显示所有边缘，而不是 cover 的强制填满并裁切 */
+  display: block; /* 去除底部默认的幽灵空白 */
+}
+
+/* 手机端依然保持单排，防止视频缩得太小看不清 */
+@media (max-width: 768px) {
+  .carousel.two-col .demo-card {
+    flex: 0 0 100%;
+  }
+}
 /* 手机端依然保持 1 个，防止太挤 */
 @media (max-width: 768px) {
   .carousel.two-col .demo-card {
@@ -1581,6 +1601,7 @@ html[data-theme="light"]{
   </script>
 </body>
 </html>
+
 
 
 
