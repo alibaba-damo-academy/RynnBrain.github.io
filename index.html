@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
+    .dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -20px; /* 向上延伸 20px 填补空隙 */
+  left: 0;
+  width: 100%;
+  height: 20px;
+  /* background: red; 测试时可以取消注释看看这个隐形桥的位置 */
+}
   /* =========================
    下拉菜单按钮样式
 ========================= */
@@ -1601,6 +1610,7 @@ html[data-theme="light"]{
   </script>
 </body>
 </html>
+
 
 
 
